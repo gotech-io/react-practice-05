@@ -37,6 +37,7 @@ const ToDoItemPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
+
   const [todo, setTodo] = useState(location.state.todo);
   const itemId = parseInt(params.itemId);
 
@@ -61,7 +62,9 @@ const ToDoItemPage = () => {
         'Content-Type': 'application/json',
       },
     });
-    setTodo({ ...todo, isCompleted: newState });
+    const newTodo = { ...todo, isCompleted: newState };
+    navigate(location.pathname, { replace: true, state: { todo: newTodo } });
+    setTodo(newTodo);
   };
 
   const handleDelete = async () => {
