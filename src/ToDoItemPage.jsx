@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import styled from '@emotion/styled/macro';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import consts from './consts';
 import { ThemeContext } from './themeContext';
 import Checkbox from './Checkbox';
@@ -35,9 +35,10 @@ const Icon = styled.div`
 const ToDoItemPage = () => {
   const { theme } = useContext(ThemeContext);
   const navigate = useNavigate();
+  const location = useLocation();
   const params = useParams();
+  const [todo, setTodo] = useState(location.state.todo);
   const itemId = parseInt(params.itemId);
-  const [todo, setTodo] = useState();
 
   useEffect(() => {
     const fetchTodo = async () => {

@@ -33,7 +33,7 @@ const ToDoItem = ({ todo, onChange }) => {
   let navigate = useNavigate();
 
   const handleClick = (e) => {
-    navigate(`/item/${todo.id}`);
+    navigate(`/item/${todo.id}`, { state: { todo } });
   };
 
   return (
