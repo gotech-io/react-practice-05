@@ -5,6 +5,7 @@ import ThemeToggle from './ThemeToggle';
 import CompletedToggle from './CompletedToggle';
 import ThemeProvider, { ThemeContext } from './themeContext';
 import styled from '@emotion/styled/macro';
+import consts from './consts';
 
 const Container = styled.div`
   position: relative;
@@ -36,7 +37,7 @@ const App = () => {
         initialState={showCompleted}
         onChange={setShowCompleted}
       />
-      <FetchToDoList url="./todos.json" showCompleted={showCompleted} />
+      <FetchToDoList url={consts.serverUrl} showCompleted={showCompleted} />
     </Container>
   );
 };

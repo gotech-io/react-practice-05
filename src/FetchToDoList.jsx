@@ -23,22 +23,41 @@ const FetchToDoList = ({ url, showCompleted }) => {
     }
   }, [todos, showCompleted]);
 
-  const handleChange = (id, newState) => {
+  const handleChange = async (id, newState) => {
     const newTodos = todos.map((todo) => {
       if (todo.id === id) {
         return { ...todo, isCompleted: newState };
       }
       return todo;
     });
+
+    await fetch(`${url}/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ isCompleted: newState }),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+
     setTodos(newTodos);
   };
 
-  const handleAdd = (title) => {
+  const handleAdd = async (title) => {
     const newTodo = {
       id: Math.max(...todos.map((todo) => todo.id)) + 1,
       title,
       isCompleted: false,
     };
+
+    await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(newTodo),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
     setTodos([...todos, newTodo]);
   };
 
