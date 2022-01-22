@@ -49,6 +49,7 @@ const FetchToDoList = ({ url, showCompleted }) => {
       title,
       isCompleted: false,
     };
+    console.log(JSON.stringify(newTodo));
 
     await fetch(url, {
       method: 'POST',

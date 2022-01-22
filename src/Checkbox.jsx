@@ -18,6 +18,7 @@ const CheckboxInput = styled.input`
   border-radius: 1px;
   outline: none;
   margin: 0;
+  cursor: pointer;
 
   &:checked {
     background-color: ${({ theme }) => theme.checkboxColor};
@@ -59,6 +60,7 @@ const Checkbox = (props) => {
         value={value}
         checked={checked}
         onChange={onChange}
+        onClick={(e) => e.stopPropagation()}
         {...rest}
       />
     </CheckboxContainer>

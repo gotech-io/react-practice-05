@@ -1,11 +1,11 @@
-import { useState, useContext } from 'react';
-import Header from './Header';
-import FetchToDoList from './FetchToDoList';
-import ThemeToggle from './ThemeToggle';
-import CompletedToggle from './CompletedToggle';
-import ThemeProvider, { ThemeContext } from './themeContext';
+import { useContext } from 'react';
 import styled from '@emotion/styled/macro';
-import consts from './consts';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Header from './Header';
+import ThemeToggle from './ThemeToggle';
+import ToDoListPage from './ToDoListPage';
+import ToDoItemPage from './ToDoItemPage';
+import ThemeProvider, { ThemeContext } from './themeContext';
 
 const Container = styled.div`
   position: relative;
@@ -25,19 +25,26 @@ const ThemedApp = () => {
 };
 
 const App = () => {
-  const [showCompleted, setShowCompleted] = useState(true);
   const { theme } = useContext(ThemeContext);
 
   return (
     <Container theme={theme}>
       <Header text="TODO LIST" />
       <ThemeToggle />
-      <CompletedToggle
-        text="Show Completed"
-        initialState={showCompleted}
-        onChange={setShowCompleted}
-      />
-      <FetchToDoList url={consts.serverUrl} showCompleted={showCompleted} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<ToDoListPage />} />
+          <Route path="/item/:itemId" element={<ToDoItemPage />} />
+          <Route
+            path="*"
+            element={
+              <main>
+                <p>404</p>
+              </main>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
     </Container>
   );
 };
